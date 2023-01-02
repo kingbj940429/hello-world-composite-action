@@ -14,5 +14,5 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: sub-action/ci.sh
+    - run: ci.sh
       shell: bash
