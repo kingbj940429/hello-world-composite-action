@@ -6,40 +6,13 @@ inputs:
     required: true
     default: 'World'
 
-  values-files:
-    description: >-
-      The path to the `values.yaml` file that you want to modify.
-    required: true
-    default: chart/values.yaml
-
-  tag-keys:
-    description: >-
-      The dot-notation path to the YAML key (or keys, if listed as a CSV) that
-      should be updated.
-    required: true
-    default: .image.tag
-
-  tag_value:
-    description: The destination tag (the new tag) to create and publish
-    required: true
-
 outputs:
   random-number:
     description: "Random number"
     value: ${{ steps.random-number-generator.outputs.random-number }}
+    
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
-      shell: bash
-
-    - shell: bash
-      run: |
-        TAG_VALUE="${{ inputs.tag_value }}"
-        echo "TAG_VALUE=${TAG_VALUE}" >> $GIT_TAG_VALUE
-
     - run: ci.sh
       shell: bash
